@@ -20,15 +20,13 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        StringBuilder score;
         if (player1Score == player2Score) {
-            score = getScoreResultOfEqualScores(player1Score);
+            return getScoreResultOfEqualScores(player1Score).toString();
         } else if (player1Score >= 4 || player2Score >= 4) {
-            score = getScoreResultOfAnyScoreGreaterThanFour(player1Score, player2Score);
+            return getScoreResultOfAnyScoreGreaterThanFour(player1Score, player2Score).toString();
         } else {
-            score = getScoreResultOfCommon(player1Score, player2Score);
+            return getScoreResultOfCommon(player1Score, player2Score).toString();
         }
-        return score.toString();
     }
 
     private static StringBuilder getScoreResultOfCommon(int player1Score, int player2Score) {
