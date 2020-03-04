@@ -23,7 +23,7 @@ public class TennisGame1 implements TennisGame {
         if (player1Score == player2Score) {
             return getScoreResultOfEqualScores(player1Score);
         } else if (player1Score >= 4 || player2Score >= 4) {
-            return getScoreResultOfAnyScoreGreaterThanFour(player1Score, player2Score);
+            return getScoreResultOfAnyScoreGreaterThanFour(player1Score - player2Score);
         } else {
             return getScoreResultOfCommon(player1Score, player2Score);
         }
@@ -57,17 +57,17 @@ public class TennisGame1 implements TennisGame {
         return score.toString();
     }
 
-    private static String getScoreResultOfAnyScoreGreaterThanFour(int player1Score, int player2Score) {
-        int minusResult = player1Score - player2Score;
-        if (minusResult == 1) {
+    private static String getScoreResultOfAnyScoreGreaterThanFour(int scoreDifference) {
+        if (scoreDifference == 1) {
             return "Advantage player1";
-        } else if (minusResult == -1) {
-            return "Advantage player2";
-        } else if (minusResult >= 2) {
-            return "Win for player1";
-        } else {
-            return "Win for player2";
         }
+        if (scoreDifference == -1) {
+            return "Advantage player2";
+        }
+        if (scoreDifference >= 2) {
+            return "Win for player1";
+        }
+        return "Win for player2";
     }
 
     private static String getScoreResultOfEqualScores(int player1Score) {
