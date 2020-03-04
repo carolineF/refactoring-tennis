@@ -2,10 +2,11 @@ package cn.xpbootcamp.tennis.game1;
 
 public class Player {
     private String playerName;
-    private int playerScore = 0;
+    private int playerScore;
 
     public Player(String playerName) {
         this.setPlayerName(playerName);
+        this.setPlayerScore(0);
     }
 
     public String getPlayerName() {
