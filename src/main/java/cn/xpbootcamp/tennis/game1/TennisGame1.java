@@ -30,31 +30,26 @@ public class TennisGame1 implements TennisGame {
     }
 
     private static String getScoreResultOfCommon(int player1Score, int player2Score) {
-        int tempScore;
         StringBuilder score = new StringBuilder();
-        for (int i = 1; i < 3; i++) {
-            if (i == 1) {
-                tempScore = player1Score;
-            } else {
-                score.append("-");
-                tempScore = player2Score;
-            }
-            switch (tempScore) {
-                case 0:
-                    score.append("Love");
-                    break;
-                case 1:
-                    score.append("Fifteen");
-                    break;
-                case 2:
-                    score.append("Thirty");
-                    break;
-                case 3:
-                    score.append("Forty");
-                    break;
-            }
-        }
+
+        score.append(getScoreStringByScore(player1Score));
+        score.append("-");
+        score.append(getScoreStringByScore(player2Score));
+
         return score.toString();
+    }
+
+    private static String getScoreStringByScore(int tempScore) {
+        switch (tempScore) {
+            case 0:
+                return "Love";
+            case 1:
+                return "Fifteen";
+            case 2:
+                return "Thirty";
+            default:
+                return "Forty";
+        }
     }
 
     private static String getScoreResultOfAnyScoreGreaterThanFour(int scoreDifference) {
