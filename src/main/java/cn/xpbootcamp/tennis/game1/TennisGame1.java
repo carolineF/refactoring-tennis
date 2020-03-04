@@ -21,12 +21,12 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         if (player1.getPlayerScore() == player2.getPlayerScore()) {
-            return getScoreResultOfEqualScores(player1.getPlayerScore());
-        } else if (player1.getPlayerScore() >= 4 || player2.getPlayerScore() >= 4) {
-            return getScoreResultOfAnyScoreGreaterThanFour(player1, player2);
-        } else {
-            return getScoreResultOfCommon(player1, player2);
+            return getScoreResultOfEqualScores(player1);
         }
+        if (player1.getPlayerScore() >= 4 || player2.getPlayerScore() >= 4) {
+            return getScoreResultOfAnyScoreGreaterThanFour(player1, player2);
+        }
+        return getScoreResultOfCommon(player1, player2);
     }
 
     private static String getScoreResultOfCommon(Player player1, Player player2) {
@@ -53,17 +53,10 @@ public class TennisGame1 implements TennisGame {
         return "Win for " + player2.getPlayerName();
     }
 
-    private static String getScoreResultOfEqualScores(int player1Score) {
-        switch (player1Score) {
-            case 0:
-                return "Love-All";
-            case 1:
-                return "Fifteen-All";
-            case 2:
-                return "Thirty-All";
-            default:
-                return "Deuce";
-
+    private static String getScoreResultOfEqualScores(Player player) {
+        if (player.getPlayerScore() >= 3) {
+            return "Deuce";
         }
+        return player.getScore() + "-All";
     }
 }
