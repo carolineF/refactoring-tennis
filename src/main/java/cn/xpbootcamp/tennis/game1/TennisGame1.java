@@ -4,52 +4,39 @@ import cn.xpbootcamp.tennis.TennisGame;
 
 public class TennisGame1 implements TennisGame {
 
-    private int player1Score = 0;
-    private int player2Score = 0;
-    private String player1Name;
+    private Player player1;
+    private Player player2;
 
     public TennisGame1(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
+        this.player1 = new Player(player1Name);
+        this.player2 = new Player(player2Name);
     }
 
     public void wonPoint(String playerName) {
-        if (playerName.equals(this.player1Name))
-            player1Score += 1;
+        if (playerName.equals(this.player1.getPlayerName()))
+            player1.wonPoint();
         else
-            player2Score += 1;
+            player2.wonPoint();
     }
 
     public String getScore() {
-        if (player1Score == player2Score) {
-            return getScoreResultOfEqualScores(player1Score);
-        } else if (player1Score >= 4 || player2Score >= 4) {
-            return getScoreResultOfAnyScoreGreaterThanFour(player1Score - player2Score);
+        if (player1.getPlayerScore() == player2.getPlayerScore()) {
+            return getScoreResultOfEqualScores(player1.getPlayerScore());
+        } else if (player1.getPlayerScore() >= 4 || player2.getPlayerScore() >= 4) {
+            return getScoreResultOfAnyScoreGreaterThanFour(player1.getPlayerScore() - player2.getPlayerScore());
         } else {
-            return getScoreResultOfCommon(player1Score, player2Score);
+            return getScoreResultOfCommon(player1, player2);
         }
     }
 
-    private static String getScoreResultOfCommon(int player1Score, int player2Score) {
+    private static String getScoreResultOfCommon(Player player1, Player player2) {
         StringBuilder score = new StringBuilder();
 
-        score.append(getScoreStringByScore(player1Score));
+        score.append(player1.getScore());
         score.append("-");
-        score.append(getScoreStringByScore(player2Score));
+        score.append(player2.getScore());
 
         return score.toString();
-    }
-
-    private static String getScoreStringByScore(int tempScore) {
-        switch (tempScore) {
-            case 0:
-                return "Love";
-            case 1:
-                return "Fifteen";
-            case 2:
-                return "Thirty";
-            default:
-                return "Forty";
-        }
     }
 
     private static String getScoreResultOfAnyScoreGreaterThanFour(int scoreDifference) {
