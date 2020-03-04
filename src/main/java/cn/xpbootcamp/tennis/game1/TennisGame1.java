@@ -20,19 +20,20 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        StringBuilder score = new StringBuilder();
+        StringBuilder score;
         if (player1Score == player2Score) {
             score = getScoreResultOfEqualScores(player1Score);
         } else if (player1Score >= 4 || player2Score >= 4) {
             score = getScoreResultOfAnyScoreGreaterThanFour(player1Score, player2Score);
         } else {
-            getScoreResultOfCommon(score, player1Score, player2Score);
+            score = getScoreResultOfCommon(player1Score, player2Score);
         }
         return score.toString();
     }
 
-    private static void getScoreResultOfCommon(StringBuilder score, int player1Score, int player2Score) {
+    private static StringBuilder getScoreResultOfCommon(int player1Score, int player2Score) {
         int tempScore;
+        StringBuilder score = new StringBuilder();
         for (int i = 1; i < 3; i++) {
             if (i == 1) {
                 tempScore = player1Score;
@@ -55,35 +56,33 @@ public class TennisGame1 implements TennisGame {
                     break;
             }
         }
+        return score;
     }
 
     private static StringBuilder getScoreResultOfAnyScoreGreaterThanFour(int player1Score, int player2Score) {
-        StringBuilder score;
         int minusResult = player1Score - player2Score;
-        if (minusResult == 1) score = new StringBuilder("Advantage player1");
-        else if (minusResult == -1) score = new StringBuilder("Advantage player2");
-        else if (minusResult >= 2) score = new StringBuilder("Win for player1");
-        else score = new StringBuilder("Win for player2");
-        return score;
+        if (minusResult == 1) {
+            return new StringBuilder("Advantage player1");
+        } else if (minusResult == -1) {
+            return new StringBuilder("Advantage player2");
+        } else if (minusResult >= 2) {
+            return new StringBuilder("Win for player1");
+        } else {
+            return new StringBuilder("Win for player2");
+        }
     }
 
     private static StringBuilder getScoreResultOfEqualScores(int player1Score) {
-        StringBuilder score;
         switch (player1Score) {
             case 0:
-                score = new StringBuilder("Love-All");
-                break;
+                return new StringBuilder("Love-All");
             case 1:
-                score = new StringBuilder("Fifteen-All");
-                break;
+                return new StringBuilder("Fifteen-All");
             case 2:
-                score = new StringBuilder("Thirty-All");
-                break;
+                return new StringBuilder("Thirty-All");
             default:
-                score = new StringBuilder("Deuce");
-                break;
+                return new StringBuilder("Deuce");
 
         }
-        return score;
     }
 }
